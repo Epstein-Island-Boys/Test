@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <!-- Custom PreHead code is injected here -->
     
-
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name ="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta charset="utf-8"/>
-
         <!-- Builtin injector for disabling cache -->
         <meta http-equiv="pragma" content="no-cache"/>
-
         <!-- Set the title bar of the page -->
         <title>Escape Stein</title>
-
         <!-- Custom PreStyle code is injected here -->
         
-
         <!-- Set the background colour of the document -->
         <style>
-            body {
-                background: #0;
+            html, body {
+                width: 100%;
+                height: 100%;
+                background: black;
                 color: #cccccc;
                 margin: 0px;
                 padding: 0px;
                 border: 0px;
+                overflow: hidden;
+            }
+
+            #gm4html5_div_id {
+                position: absolute;
+                left: 0;
+                top: 0;
             }
 
             canvas {
+                width: 1366px;
+                height: 768px;
+                display: block;
                 image-rendering: optimizeSpeed;
                 -webkit-interpolation-mode: nearest-neighbor;
                 -ms-touch-action: none;
@@ -75,32 +81,24 @@
             /* END - Custom Runner Styles */
             
         </style>
-
         <!-- Custom PostStyle code is injected here -->
         
-
         <!-- Builtin injector for injecting flurry analytics code -->
         
     </head>
-
     <!-- Custom PostHead code is injected here -->
     
-
     <!-- Custom PreBody code is injected here -->
     
-
     <body>
         <!-- Custom BodyStart code is injected here -->
         
-
         <div class="gm4html5_div_class" id="gm4html5_div_id">
             
             <!-- Builtin injector for splash screen -->
             
-
             <!-- Custom PreCanvas code is injected here -->
             
-
             <!-- Create the canvas element the game draws to -->
             <canvas id="canvas" width="1366" height="768" >
                 
@@ -110,22 +108,40 @@
             <!-- Custom PostCanvas code is injected here -->
             
         </div>
-
         <!-- Run the game code -->
         <script type="text/javascript" src="escapeStein/Blank Pixel Game.js?cachebust=746260156"></script>
-
         <!-- Builtin injector for injecting runner path -->
         
+        <script>
+            const BASE_W = 1366;
+            const BASE_H = 768;
 
-        <script>window.onload = GameMaker_Init;</script>
+            function scaleGame() {
+                const canvas = document.getElementById("canvas");
+                const gmDiv  = document.getElementById("gm4html5_div_id");
+                const scale = Math.min(
+                    window.innerWidth  / BASE_W,
+                    window.innerHeight / BASE_H
+                );
+                const w = Math.floor(BASE_W * scale);
+                const h = Math.floor(BASE_H * scale);
+                canvas.style.width  = w + "px";
+                canvas.style.height = h + "px";
+                gmDiv.style.width   = w + "px";
+                gmDiv.style.height  = h + "px";
+            }
 
+            window.addEventListener("resize", scaleGame);
+            window.onload = function () {
+                GameMaker_Init();
+                scaleGame();
+            };
+        </script>
         <!-- Builtin injector for injecting google analytics code -->
         
-
         <!-- Custom BodyEnd code is injected here -->
         
     </body>
-
     <!-- Custom PostBody code is injected here -->
     
 </html>
