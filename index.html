@@ -25,17 +25,16 @@
                 padding: 0px;
                 border: 0px;
                 overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             #gm4html5_div_id {
-                position: absolute;
-                left: 0;
-                top: 0;
+                position: relative;
             }
 
             canvas {
-                width: 1366px;
-                height: 768px;
                 display: block;
                 image-rendering: optimizeSpeed;
                 -webkit-interpolation-mode: nearest-neighbor;
@@ -100,8 +99,7 @@
             <!-- Custom PreCanvas code is injected here -->
             
             <!-- Create the canvas element the game draws to -->
-            <canvas id="canvas" width="1366" height="768" >
-                
+            <canvas id="canvas" width="1366" height="768">
                 <p>Your browser doesn't support HTML5 canvas.</p>
             </canvas>
             
@@ -130,6 +128,15 @@
                 gmDiv.style.width   = w + "px";
                 gmDiv.style.height  = h + "px";
             }
+
+            // Watch for GameMaker dynamically adding a video element
+            const observer = new MutationObserver(() => {
+                const video = document.querySelector("video");
+                if (video) {
+                    scaleGame();
+                }
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
 
             window.addEventListener("resize", scaleGame);
             window.onload = function () {
